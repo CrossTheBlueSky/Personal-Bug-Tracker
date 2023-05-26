@@ -6,7 +6,7 @@ function Search(props){
 
     return    ( 
 
-    <input type="text" placeholder="search by Id or Tags"></input>
+    <input type="text" placeholder="search by Id or Tags" size="50"></input>
 
 )
 

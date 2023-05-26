@@ -29,25 +29,31 @@ body {
   /* display: flex; */
   min-width: 320px;
   min-height: 100vh;
+  background-color:#080023;
 }
 
 .Card{
-  box-shadow: 2px 2px;
-  background-color: lightseagreen;
+  border-style:hidden;
+  box-shadow: 2px 2px #2b478f;
+  background-color: #0b235d;
+  margin-top:10px;
   cursor:pointer;
   width: 16%;
   word-wrap:break-word;
 
+
 }
 
 .Card h5{
-  text-align:left;
+  display: flex;
+  justify-content: space-between;
   margin: .15rem;
-  color: rgb(13, 54, 89);
+  color: rgb(60, 126, 183);
 }
 .Card h6{
   text-align:left;
   margin: .15rem;
+  font-size:1.05rem;
 
 }
 

@@ -20,15 +20,15 @@ export default function FormDialog(props) {
   };
 
   const changeHandler = (event)=>{
-   const name = event.target.id;
-   const value = event.target.value;
-   
+   let name = event.target.id;
+   let value = event.target.value;   
+
+
     setNewBug(prevBug =>{
         return {
             ...prevBug, [name] : value
-        }
-    });
-  };
+        }})
+};
 
   const handleAdd = (event) =>{
     setOpen(false);
@@ -55,9 +55,11 @@ export default function FormDialog(props) {
           />
         <select onChange={changeHandler} id="project">
             <option>Project</option>
-            <option value="placeholder1">Placeholder 1</option>
-            <option value="placeholder2">Placeholder 2</option>
-            <option value="placeholder3">Placeholder 3</option>
+            {props.projects.map((element) =>{
+              return(
+                <option value={element}>{element}</option>
+              )
+            })}
           </select>
           <select onChange={changeHandler} id="severity">
             <option>Severity</option>
