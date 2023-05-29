@@ -7,6 +7,12 @@ function Card(props){
     const projectColor = {color : props.projectColor}
     let riskColor = {color: "grey"};
     const bugPreview = props.description.slice(0, 100);
+    let tagsPreview = props.tags.slice(0, 25) + "...";
+    if(props.tags.length < 25){
+        tagsPreview = props.tags
+  
+    }
+
     switch (props.severity){
         case 'Trivial':
             riskColor = {color: "cyan"}
@@ -29,8 +35,8 @@ function Card(props){
     >  
         <h5>{props.title}<span style={projectColor}>{props.project}</span></h5>
         <h6 style={riskColor}>{props.severity}</h6>
-        <p>{bugPreview + "..."}</p>
-        <p style={{fontSize:".75rem", color:"rgb(60, 126, 183)"}}>{props.tags}</p>
+        <p style={{height:"5.5em"}}>{bugPreview + "..."}</p>
+        <p style={{fontSize:".75rem", color:"rgb(60, 126, 183)"}}>{tagsPreview}</p>
     </div>
 
 }
