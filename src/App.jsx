@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Card from "./Card.jsx"
 import './App.css'
 import Search from "./Search.jsx"
@@ -7,21 +7,29 @@ import Filter from "./Filter.jsx"
 import FormDialog from "./FormDialog.jsx"
 import ProjectDialog from "./ProjectDialog.jsx"
 
+
 function App() {
-  const [bugList, setBugList] = useState([]);
-  const [projectList, setProjectList] = useState([]);
+
+const placeholderBug1 = {name: "Default", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const placeholderBug2 = {name: "Default", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const placeholderBug3 = {name: "Default", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
+
+  const [bugList, setBugList] = useState(defaultBugList);
+  const [projectList, setProjectList] = useState(allProjects(bugList));
+  const [renderedBugs, setRenderedBugs] = useState(defaultBugList);
+
+  useEffect(() => fetchResults(""), [bugList])
+
   
-  const placeholderBug1 = {name: "Default", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-  const placeholderBug2 = {name: "Default", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-  const placeholderBug3 = {name: "Default", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-  const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
-  if(bugList.length < 1){setBugList(defaultBugList)}
-  if(projectList.length < 1){setProjectList(allProjects(bugList))}
+
 
   function onAdd(props) {
     setBugList((prevBugList) => {
       return [...prevBugList, props];
     });
+    setRenderedBugs(bugList);
+    console.log (renderedBugs);
   }
 
  function allProjects(props){
@@ -41,6 +49,19 @@ function App() {
     })
 
  }
+
+ function fetchResults(props){
+
+let  toShow = bugList.filter(bug => { 
+  return (
+     bug.name.toLowerCase().includes(props) ||
+     bug.tags.toLowerCase().includes(props)
+)
+    })
+
+ setRenderedBugs(toShow)
+ 
+}
 
   function createCard(props) {
     return (
@@ -63,14 +84,14 @@ function App() {
       </div>
       <div style={{display: "flex", justifyContent: "space-around", paddingBotton: "2px"}}>
         <div style={{display:"flex", flex:"75"}}>
-          <Search /> <ProjectDialog onAdd={addProject}/> <FormDialog onAdd={onAdd} projects = {projectList}/> 
+          <Search onSearch={fetchResults} /> <ProjectDialog onAdd={addProject}/> <FormDialog onAdd={onAdd} projects = {projectList}/> 
         </div>
         <div style={{display:"flex", flex:"25", alignContent:"flex-end"}}>
           <Sort />
           <Filter />
         </div>
       </div>
-      <div className="container">{bugList.map(createCard)}</div>
+      <div className="container">{renderedBugs.map(createCard)}</div>
     </div>
   );
 }
