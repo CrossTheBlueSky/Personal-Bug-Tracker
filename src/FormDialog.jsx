@@ -57,7 +57,7 @@ export default function FormDialog(props) {
             <option>Project</option>
             {props.projects.map((element) =>{
               return(
-                <option value={element}>{element}</option>
+                <option key = {element.id} value={element.project}>{element}</option>
               )
             })}
           </select>

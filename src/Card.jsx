@@ -3,7 +3,7 @@ import "./index.css";
 
 
 function Card(props){
-    
+    const bug = props
     const projectColor = {color : props.projectColor}
     let riskColor = {color: "grey"};
     const bugPreview = props.description.slice(0, 100);
@@ -31,7 +31,7 @@ function Card(props){
 
     }
     return <div className="Card" 
-    onClick = {() => {console.log("clicked")}}
+    onClick = {props.onClick}
     >  
         <h5>{props.title}<span style={projectColor}>{props.project}</span></h5>
         <h6 style={riskColor}>{props.severity}</h6>

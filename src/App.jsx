@@ -6,19 +6,20 @@ import Sort from "./Sort.jsx"
 import Filter from "./Filter.jsx"
 import FormDialog from "./FormDialog.jsx"
 import ProjectDialog from "./ProjectDialog.jsx"
-
+import FullScreenDialog from './FullScreenDialog.jsx'
 
 function App() {
 
-const placeholderBug1 = {name: "Default", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-const placeholderBug2 = {name: "Default", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-const placeholderBug3 = {name: "Default", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const placeholderBug1 = {name: "Default1", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const placeholderBug2 = {name: "Default2", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const placeholderBug3 = {name: "Default3", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
 const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
 
   const [bugList, setBugList] = useState(defaultBugList);
   const [projectList, setProjectList] = useState(allProjects(bugList));
   const [renderedBugs, setRenderedBugs] = useState(defaultBugList);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentBug, setCurrentBug] = useState(placeholderBug1)
   useEffect(() => fetchResults(""), [bugList])
 
   
@@ -29,14 +30,14 @@ const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
       return [...prevBugList, props];
     });
     setRenderedBugs(bugList);
-    console.log (renderedBugs);
+
   }
 
  function allProjects(props){
 
   const allProjects = []
   props.forEach((e) =>{
-    allProjects.push(e.project)
+    allProjects.push({id: e.project, project: e.project})
   })
 
   return allProjects
@@ -63,21 +64,44 @@ let  toShow = bugList.filter(bug => {
  
 }
 
+
   function createCard(props) {
     return (
       <Card
+        key = {props.name}
         title={props.name}
         project={props.project}
         reproduce={props.reproduce}
         description={props.description}
         severity={props.severity}
         tags={props.tags}
+        onClick= {modalOpener}
+
       />
     );
   }
 
+  function modalOpener(){
+  
+   setModalOpen(true)
+
+  }
+  function modalCloser(){
+    setModalOpen(false)
+   
+  }
+
+  // function createModal(){
+    
+  //   if(currentBug.name != "empty"){
+
+  //    return <FullScreenDialog open={modalOpen} handleClose={modalCloser} bug={currentBug} />
+  //   }
+  // }
+
   return (
     <div>
+      <FullScreenDialog open={modalOpen} handleClose={modalCloser} bug={currentBug} />
       <div id="Heading">
         <h1>Bug Repository</h1>
         <h2> Get ya bugs here, step right up!</h2>
