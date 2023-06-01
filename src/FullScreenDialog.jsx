@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import {ChildModal} from "./NestedModal"
 import "./index.css"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -21,6 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog(props) {
 
   const title = props.bug.name.toString()
+  const [editBug, setEditBug] = React.useState(props.bug)
 
   return (
 
@@ -31,8 +33,8 @@ export default function FullScreenDialog(props) {
         onClose={props.handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar sx={{bgcolor: "#0b235d"}}>
+        <AppBar sx={{ position: 'relative'}}>
+          <Toolbar sx={{bgcolor: "#0b235d", mr:"-1rem"}}>
             <IconButton
               edge="start"
               color="inherit"
@@ -41,36 +43,41 @@ export default function FullScreenDialog(props) {
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div" >
+            <Typography sx={{ ml: 2}} variant="h6" component="div" >
               {title}
             </Typography>
-            <Button autoFocus color="inherit" onClick={props.handleClose}>
+            <ChildModal sx={{flex: 2}}/>
+            <Button autoFocus color="inherit" onClick={props.handleClose} sx={{ml:"auto"}}>
               save
             </Button>
           </Toolbar>
         </AppBar>
         <List sx={{color: 'darkslategrey', '& .MuiListItemText-secondary': {color: 'lightslategray'}}}>
           <ListItem button>
-            <ListItemText primary="Severity" secondary={props.bug.severity} />
+            <ListItemText primary="Severity" secondary={editBug.severity} />
+            <ChildModal sx={{ml:"auto"}} />
           </ListItem>
           <Divider />
           <ListItem button>
             <ListItemText
               primary="Description"
-              secondary={props.bug.description}
+              secondary={editBug.description}
             />
+                        <ChildModal sx={{ml:"auto"}} />
           </ListItem>
           <ListItem button>
             <ListItemText
               primary="How to Reproduce"
-              secondary={props.bug.reproduce}
+              secondary={editBug.reproduce}
             />
+                        <ChildModal sx={{ml:"auto"}} />
           </ListItem>
           <ListItem button>
             <ListItemText
               primary="Tags"
-              secondary={props.bug.tags}
+              secondary={editBug.tags}
             />
+                        <ChildModal sx={{ml:"auto"}} />
           </ListItem>
         </List>
       </Dialog>
