@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 const style = {
   position: 'absolute',
@@ -17,7 +18,7 @@ const style = {
   pb: 3,
 };
 
-export function ChildModal() {
+export function ChildModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -33,13 +34,19 @@ export function ChildModal() {
         open={open}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">Text in a child modal</h2>
-          <p id="child-modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
+        aria-describedby="child-modal-description">
+        <Box sx={{ ...style, width: 400, bgcolor: "#2b478f" }} >
+        <TextField
+            autoFocus
+            margin="dense"
+            id="reproduce"
+            defaultValue={props.defaultValue}
+            rows={8}
+            multiline
+            type="text"
+            fullWidth
+            variant="standard"
+          />
           <Button onClick={handleClose}>Close Child Modal</Button>
         </Box>
       </Modal>

@@ -55,7 +55,6 @@ export default function FullScreenDialog(props) {
         <List sx={{color: 'darkslategrey', '& .MuiListItemText-secondary': {color: 'lightslategray'}}}>
           <ListItem button>
             <ListItemText primary="Severity" secondary={editBug.severity} />
-            <ChildModal sx={{ml:"auto"}} />
           </ListItem>
           <Divider />
           <ListItem button>
@@ -63,21 +62,28 @@ export default function FullScreenDialog(props) {
               primary="Description"
               secondary={editBug.description}
             />
-                        <ChildModal sx={{ml:"auto"}} />
+                        <ChildModal defaultValue = {editBug.description} sx={{ml:"auto"}} />
           </ListItem>
           <ListItem button>
             <ListItemText
               primary="How to Reproduce"
               secondary={editBug.reproduce}
             />
-                        <ChildModal sx={{ml:"auto"}} />
+                        <ChildModal defaultValue = {editBug.reproduce} sx={{ml:"auto"}} />
+          </ListItem>
+          <ListItem button>
+            <ListItemText
+              primary="Notes"
+              secondary={editBug.notes}
+            />
+                        <ChildModal defaultValue = {editBug.notes} sx={{ml:"auto"}} />
           </ListItem>
           <ListItem button>
             <ListItemText
               primary="Tags"
               secondary={editBug.tags}
             />
-                        <ChildModal sx={{ml:"auto"}} />
+                        <ChildModal defaultValue = {editBug.tags} sx={{ml:"auto"}} />
           </ListItem>
         </List>
       </Dialog>

@@ -10,9 +10,9 @@ import FullScreenDialog from './FullScreenDialog.jsx'
 
 function App() {
 
-const placeholderBug1 = {name: "Default1", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-const placeholderBug2 = {name: "Default2", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
-const placeholderBug3 = {name: "Default3", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", tags: "javascript react"}
+const placeholderBug1 = {name: "Default1", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
+const placeholderBug2 = {name: "Default2", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
+const placeholderBug3 = {name: "Default3", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
 const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
 
   const [bugList, setBugList] = useState(defaultBugList);
@@ -53,10 +53,18 @@ const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
 
  function fetchResults(props){
 
+  const query = props.toLowerCase()
+
+
 let  toShow = bugList.filter(bug => { 
+
+  const nameChecker = bug.name.slice(0, query.length).toLowerCase()
+  const tagArr = bug.tags.split(' ').map(e => e.slice(0, query.length)).filter(e => e === query)
+  
   return (
-     bug.name.toLowerCase().includes(props) ||
-     bug.tags.toLowerCase().includes(props)
+    
+     nameChecker === query ||
+     tagArr.includes(query)
 )
     })
 
