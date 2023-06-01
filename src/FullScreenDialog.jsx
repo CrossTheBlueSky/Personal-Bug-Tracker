@@ -17,21 +17,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
 export default function FullScreenDialog(props) {
 
   const title = props.bug.name.toString()
 
   return (
 
-    <div>
-      <Dialog
+    <div >
+      <Dialog sx={{ '& .MuiPaper-root': {bgcolor: "#04102b"}}}
         fullScreen
         open={props.open}
         onClose={props.handleClose}
         TransitionComponent={Transition}
       >
         <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
+          <Toolbar sx={{bgcolor: "#0b235d"}}>
             <IconButton
               edge="start"
               color="inherit"
@@ -48,7 +49,7 @@ export default function FullScreenDialog(props) {
             </Button>
           </Toolbar>
         </AppBar>
-        <List>
+        <List sx={{color: 'darkslategrey', '& .MuiListItemText-secondary': {color: 'lightslategray'}}}>
           <ListItem button>
             <ListItemText primary="Severity" secondary={props.bug.severity} />
           </ListItem>

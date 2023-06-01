@@ -37,7 +37,7 @@ const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
 
   const allProjects = []
   props.forEach((e) =>{
-    allProjects.push({id: e.project, project: e.project})
+    allProjects.push(e.project)
   })
 
   return allProjects
@@ -91,13 +91,6 @@ let  toShow = bugList.filter(bug => {
    
   }
 
-  // function createModal(){
-    
-  //   if(currentBug.name != "empty"){
-
-  //    return <FullScreenDialog open={modalOpen} handleClose={modalCloser} bug={currentBug} />
-  //   }
-  // }
 
   return (
     <div>

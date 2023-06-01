@@ -40,7 +40,7 @@ export default function FormDialog(props) {
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Bug
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': {bgcolor: "#2b478f"}}}>
         <DialogTitle>Adding Bug</DialogTitle>
         <DialogContent>
           <TextField

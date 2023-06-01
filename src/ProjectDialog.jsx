@@ -36,7 +36,7 @@ export default function ProjectDialog(props) {
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Project
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': {bgcolor: "#2b478f"}}}>
         <DialogTitle>Adding Project</DialogTitle>
         <DialogContent>
           <TextField
@@ -49,10 +49,10 @@ export default function ProjectDialog(props) {
             fullWidth
             variant="standard"
           />
-          <input type="color" 
+          {/* <input type="color" 
           id="color"
           onChange={changeHandler}/>
-          <p style={{fontSize:".75rem", color:"grey"}}>Choose a unique color <br />to identify the project</p>
+          <p style={{fontSize:".75rem", color:"grey"}}>Choose a unique color <br />to identify the project</p> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
