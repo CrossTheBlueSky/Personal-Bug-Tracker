@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import "./index.css"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -23,9 +24,6 @@ export default function FullScreenDialog(props) {
   return (
 
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button> */}
       <Dialog
         fullScreen
         open={props.open}
@@ -59,6 +57,18 @@ export default function FullScreenDialog(props) {
             <ListItemText
               primary="Description"
               secondary={props.bug.description}
+            />
+          </ListItem>
+          <ListItem button>
+            <ListItemText
+              primary="How to Reproduce"
+              secondary={props.bug.reproduce}
+            />
+          </ListItem>
+          <ListItem button>
+            <ListItemText
+              primary="Tags"
+              secondary={props.bug.tags}
             />
           </ListItem>
         </List>
