@@ -72,22 +72,40 @@ let  toShow = bugList.filter(bug => {
  
 }
 
+function onDelete(props){
+ 
+  
+  const filtered = bugList.filter((e)=> {return e.name != props.name })
+  setBugList(filtered)
+}
+
+  function onEdit(props){
+
+    onDelete(props)
+    onAdd(props)
+    
+  }
+
 
   function createCard(props) {
     return (
       <Card
-        key = {props.name}
-        title={props.name}
+        name={props.name}
         project={props.project}
         reproduce={props.reproduce}
         description={props.description}
         severity={props.severity}
         tags={props.tags}
         onClick= {modalOpener}
-
+        bugSetter={bugSetter}
       />
     );
   }
+
+  function bugSetter(props){
+   setCurrentBug(props)
+  }
+
 
   function modalOpener(){
   
@@ -96,13 +114,14 @@ let  toShow = bugList.filter(bug => {
   }
   function modalCloser(){
     setModalOpen(false)
+
    
   }
 
 
   return (
     <div>
-      <FullScreenDialog open={modalOpen} handleClose={modalCloser} bug={currentBug} />
+      <FullScreenDialog open={modalOpen} handleClose={modalCloser} bug={currentBug} list={bugList} onEdit ={onEdit} onDelete={onDelete}/>
       <div id="Heading">
         <h1>Bug Repository</h1>
         <h2> Get ya bugs here, step right up!</h2>

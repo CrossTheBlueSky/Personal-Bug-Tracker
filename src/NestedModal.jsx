@@ -20,12 +20,27 @@ const style = {
 
 export function ChildModal(props) {
   const [open, setOpen] = React.useState(false);
+  const [bugEdit, setBugEdit] = React.useState(props.bug)
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+
+  const saveHandler = () =>{
+    props.onSave(bugEdit)
+    handleClose();
+  }
+
+  const changeHandler = (value, id)=>{
+     setBugEdit(prevBug =>{
+         return {
+             ...prevBug, [id] : value
+         }})
+
+ };
 
   return (
     <React.Fragment>
@@ -39,7 +54,7 @@ export function ChildModal(props) {
         <TextField
             autoFocus
             margin="dense"
-            id="reproduce"
+            onChange={e => changeHandler(e.target.value, props.id)}
             defaultValue={props.defaultValue}
             rows={8}
             multiline
@@ -47,7 +62,8 @@ export function ChildModal(props) {
             fullWidth
             variant="standard"
           />
-          <Button onClick={handleClose}>Close Child Modal</Button>
+          <Button onClick={saveHandler}>Save</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </Box>
       </Modal>
     </React.Fragment>

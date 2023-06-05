@@ -30,10 +30,18 @@ function Card(props){
             console.log("You didn't pick something in the dropdown you cunt");
 
     }
+
+    function clickHandler(){
+        opener()
+        bugSetter(bug)
+    }
+
+    let opener = props.onClick
+    let bugSetter = props.bugSetter
     return <div className="Card" 
-    onClick = {props.onClick}
+    onClick = {clickHandler}
     >  
-        <h5>{props.title}<span style={projectColor}>{props.project}</span></h5>
+        <h5>{props.name}<span style={projectColor}>{props.project}</span></h5>
         <h6 style={riskColor}>{props.severity}</h6>
         <p style={{height:"5.5em"}}>{bugPreview + "..."}</p>
         <p style={{fontSize:".75rem", color:"rgb(60, 126, 183)"}}>{tagsPreview}</p>
