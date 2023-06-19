@@ -10,9 +10,9 @@ import FullScreenDialog from './FullScreenDialog.jsx'
 
 function App() {
 
-const placeholderBug1 = {name: "Default1", project:"placeholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
-const placeholderBug2 = {name: "Default2", project:"placeholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
-const placeholderBug3 = {name: "Default3", project: "placeholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
+const placeholderBug1 = {name: "ADefault1", project:"Aplaceholder1", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
+const placeholderBug2 = {name: "BDefault2", project:"Bplaceholder2", reproduce: "You do the thing and it happens", severity : "Moderate", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
+const placeholderBug3 = {name: "CDefault3", project: "Cplaceholder3", reproduce: "You do the thing and it happens", severity : "Severe", description: "A lot of text. So much text. An absurd amount of text. More text than anyone should ever or will ever need, and yet it's all here, in black and white for the world to see", notes: "a place for notes", tags: "javascript react"}
 const defaultBugList = [placeholderBug1, placeholderBug2, placeholderBug3]
 
   const [bugList, setBugList] = useState(defaultBugList);
@@ -118,6 +118,74 @@ function onDelete(props){
    
   }
 
+  function sorter(type){
+    const toSort = [...renderedBugs]
+    setRenderedBugs(null)
+
+    function whichSort(k){
+      switch(k){
+        case "AlphAsc": return toSort.sort((a, b)=> { 
+          const nameA = a.name.toUpperCase()
+          const nameB = b.name.toUpperCase()
+          if(nameA < nameB){
+            return -1
+          } else if( nameA > nameB){
+            return 1
+          }else {
+            return 0
+          }
+        })
+        case "AlphDesc": return toSort.sort((a, b)=> { 
+          const nameA = a.name.toUpperCase()
+          const nameB = b.name.toUpperCase()
+          if(nameB < nameA){
+            return -1
+          } else if( nameB > nameA){
+            return 1
+          }else {
+            return 0
+          }
+        })
+        case "ProjAsc": return toSort.sort((a, b)=> { 
+          const projectA = a.project.toUpperCase()
+          const projectB = b.project.toUpperCase()
+          if(projectA < projectB){
+            return -1
+          } else if( projectA > projectB){
+            return 1
+          }else {
+            return 0
+          }
+        })
+        case "ProjDesc": return toSort.sort((a, b)=> { 
+          const projectA = a.project.toUpperCase()
+          const projectB = b.project.toUpperCase()
+          if(projectB < projectA){
+            return -1
+          } else if( projectB > projectA){
+            return 1
+          }else {
+            return 0
+          }
+        })
+        case "SevAsc": return toSort.sort((a, b) => {
+          const sev = {Trivial: 0, Minor: 1, Moderate: 2, Severe: 3}
+
+          return sev[a.severity] - sev[b.severity]
+        })
+        case "SevDesc": return toSort.sort((a, b) => {
+          const sev = {Trivial: 0, Minor: 1, Moderate: 2, Severe: 3}
+
+          return sev[b.severity] - sev[a.severity]
+        })
+      }
+    }
+    
+    
+    const sortedList = whichSort(type)
+    setRenderedBugs(sortedList)
+  }
+
 
   return (
     <div>
@@ -131,8 +199,8 @@ function onDelete(props){
           <Search onSearch={fetchResults} /> <ProjectDialog onAdd={addProject}/> <FormDialog onAdd={onAdd} projects = {projectList}/> 
         </div>
         <div style={{display:"flex", flex:"25", alignContent:"flex-end"}}>
-          <Sort />
-          <Filter />
+          <Sort sort={sorter}/>
+          {/* <Filter /> */}
         </div>
       </div>
       <div className="container">{renderedBugs.map(createCard)}</div>
